@@ -3,9 +3,22 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var db = mongoose.connection;
+db.on('error', function (err) {
+  console.log(err);
+});
+db.once('open', function () {
+  console.log('Conectado ao MongoDB');
+});
+var url = process.env.MONGO_URL;
+mongoose.connect(url);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var news = require('./routes/news');
+var pastorais = require('./routes/pastorais');
 
 var app = express();
 
@@ -22,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/news', news);
+app.use('/pastorais', pastorais);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
