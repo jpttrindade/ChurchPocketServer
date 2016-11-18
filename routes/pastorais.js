@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
             res.sendStatus(500);
         } else {
             console.log(pastorais);
-            res.statusCode = (200);
+            res.statusCode = 200;
             res.json({pastorais:pastorais});
         }
     });
