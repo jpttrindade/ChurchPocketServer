@@ -12,7 +12,8 @@ router.get('/', function (req, res) {
             res.sendStatus(500);
         } else {
             console.log(pastorais);
-            res.send(pastorais);
+            res.setStatus(200);
+            res.json({pastorais:pastorais});
         }
     });
 });
